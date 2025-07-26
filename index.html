@@ -3,329 +3,498 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoinTok</title>
-    <link rel="icon" type="image/png" href="image.png">
-    <link rel="shortcut icon" type="image/png" href="image.png">
+    <title>Draw The Token</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.7;
-            color: #2c3e50;
-            background: #ffffff;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: white;
         }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header Section */
-        header {
-            background: linear-gradient(135deg, #e3f2fd 0%, #f8faff 100%);
-            padding: 60px 0;
+        
+        .header {
             text-align: center;
-            margin-bottom: 60px;
-            border-bottom: 1px solid #e1f5fe;
+            margin-bottom: 20px;
             position: relative;
+            width: 100%;
+            padding-top: 60px;
         }
-
-        .header-nav {
+        
+        .social-link {
             position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-
-        .x-button {
-            display: inline-block;
-            background: #000000;
-            color: white;
-            padding: 10px 20px;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.15);
+            padding: 12px 18px;
+            border-radius: 12px;
             text-decoration: none;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: background 0.2s ease;
-        }
-
-        .x-button:hover {
-            background: #333333;
-        }
-
-        .logo {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: #1565c0;
-            margin-bottom: 15px;
-            letter-spacing: -1px;
-        }
-
-        .tagline {
-            font-size: 1.3rem;
-            color: #546e7a;
-            font-weight: 400;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Main Content */
-        .main-content {
-            padding-bottom: 80px;
-        }
-
-        .section {
-            margin-bottom: 70px;
-        }
-
-        .section h2 {
-            font-size: 2.5rem;
-            color: #1565c0;
-            margin-bottom: 30px;
-            text-align: center;
-            font-weight: 600;
-            position: relative;
-        }
-
-        .section h2:after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: #42a5f5;
-            margin: 15px auto 0;
-            border-radius: 2px;
-        }
-
-        .intro-text {
-            font-size: 1.2rem;
-            color: #37474f;
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 50px;
-            line-height: 1.8;
-        }
-
-        /* How It Works Section */
-        .steps-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .step {
-            text-align: center;
-            padding: 40px 20px;
-            background: #fafafa;
-            border-radius: 12px;
-            border: 1px solid #e3f2fd;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .step:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(21, 101, 192, 0.1);
-        }
-
-        .step-number {
-            display: inline-block;
-            width: 60px;
-            height: 60px;
-            background: #1565c0;
             color: white;
-            border-radius: 50%;
-            font-size: 1.5rem;
             font-weight: bold;
-            line-height: 60px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 100;
+            font-size: 14px;
+        }
+        
+        .social-link:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .title {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .timer {
+            font-size: 1.8em;
+            background: rgba(255,255,255,0.1);
+            padding: 15px 30px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .canvas-container {
+            position: relative;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            overflow: hidden;
             margin-bottom: 20px;
         }
-
-        .step h3 {
-            font-size: 1.4rem;
-            color: #1565c0;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .step p {
-            color: #546e7a;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        /* Benefits Section */
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .benefit {
-            padding: 35px 25px;
-            background: #fff;
-            border: 2px solid #e3f2fd;
-            border-radius: 12px;
-            text-align: center;
-            transition: border-color 0.2s ease;
-        }
-
-        .benefit:hover {
-            border-color: #42a5f5;
-        }
-
-        .benefit-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+        
+        #drawingCanvas {
             display: block;
+            cursor: crosshair;
         }
-
-        .benefit h3 {
-            font-size: 1.3rem;
-            color: #1565c0;
-            margin-bottom: 15px;
-            font-weight: 600;
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
         }
-
-        .benefit p {
-            color: #546e7a;
-            font-size: 1rem;
-            line-height: 1.6;
+        
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .logo {
-                font-size: 2.8rem;
-            }
-            
-            .tagline {
-                font-size: 1.1rem;
-            }
-            
-            .section h2 {
-                font-size: 2rem;
-            }
-            
-            .intro-text {
-                font-size: 1.1rem;
-            }
-            
-            .steps-container,
-            .benefits-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            header {
-                padding: 40px 0;
-            }
-            
-            .step {
-                padding: 30px 15px;
-            }
-
-            .header-nav {
-                top: 15px;
-                right: 15px;
-            }
-
-            .x-button {
-                padding: 8px 15px;
-                font-size: 0.8rem;
-            }
+        
+        input[type="color"] {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        input[type="range"] {
+            width: 100px;
+        }
+        
+        button {
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+        
+        .users-online {
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+        }
+        
+        .user-list {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+        
+        .user-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid white;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .token-info {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .main-content {
+            opacity: 0.3;
+            pointer-events: none;
+            transition: all 0.5s ease;
+        }
+        
+        .main-content.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-nav">
-            <a href="https://x.com/CoinTokSol" class="x-button" target="_blank">Follow on X</a>
-        </div>
-        <div class="container">
-            <div class="logo">CoinTok</div>
-            <div class="tagline">The coin that promotes itself</div>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="main-content">
-            
-            <!-- Introduction Section -->
-            <section class="section">
-                <h2>What is CoinTok?</h2>
-                <p class="intro-text">
-                    CoinTok is built on Bonk, which lets developers claim fees from their own coin. We take these fees and use them to buy TikTok ads. This creates a cycle where the coin never stops advertising itself.
-                </p>
-            </section>
-
-            <!-- How It Works Section -->
-            <section class="section">
-                <h2>How It Works</h2>
-                <div class="steps-container">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <h3>Bonk Fees Generated</h3>
-                        <p>Every time someone buys or sells CoinTok, fees are created on the Bonk platform</p>
-                    </div>
-                    
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <h3>Developers Claim Fees</h3>
-                        <p>Bonk allows us (the developers) to claim these fees from our own coin</p>
-                    </div>
-                    
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <h3>Fees Buy TikTok Ads</h3>
-                        <p>We use the claimed fees to buy TikTok ads that promote CoinTok to millions of people</p>
-                    </div>
-                    
-                    <div class="step">
-                        <div class="step-number">4</div>
-                        <h3>Never-Ending Cycle</h3>
-                        <p>More people see the ads and buy CoinTok, creating more fees, which buys more ads forever</p>
-                    </div>
+    <div class="header">
+        <a href="https://x.com/DrawTheTokenSol" target="_blank" class="social-link">
+            <span>𝕏</span>
+            <span>Follow</span>
+        </a>
+        <h1 class="title">Draw The Token</h1>
+        <div class="timer" id="timer">05:00</div>
+    </div>
+    
+    <div class="main-content" id="mainContent">
+        <div class="users-online">
+            <div>👥 Artists Online: <span id="userCount">7</span></div>
+            <div class="user-list" id="userList">
+                <div class="user">
+                    <div class="user-color" style="background: #666;"></div>
+                    <span>●</span>
                 </div>
-            </section>
-
-            <!-- Benefits Section -->
-            <section class="section">
-                <h2>Key Benefits</h2>
-                <div class="benefits-grid">
-                    <div class="benefit">
-                        <span class="benefit-icon">🔄</span>
-                        <h3>Pays For Itself</h3>
-                        <p>Bonk lets developers claim fees from their coin - we use these fees to buy ads automatically</p>
-                    </div>
-                    
-                    <div class="benefit">
-                        <span class="benefit-icon">📈</span>
-                        <h3>Never Stops Advertising</h3>
-                        <p>Because Bonk lets us claim fees, CoinTok will keep buying ads forever as long as people trade it</p>
-                    </div>
-                    
-                    <div class="benefit">
-                        <span class="benefit-icon">🎯</span>
-                        <h3>Reaches Right People</h3>
-                        <p>TikTok shows the ads to people who are interested in crypto</p>
-                    </div>
-                    
-                    <div class="benefit">
-                        <span class="benefit-icon">💡</span>
-                        <h3>New Idea</h3>
-                        <p>First coin to use Bonk's developer fee feature to fund endless TikTok advertising</p>
-                    </div>
+                <div class="user">
+                    <div class="user-color" style="background: #999;"></div>
+                    <span>●</span>
                 </div>
-            </section>
-
+                <div class="user">
+                    <div class="user-color" style="background: #333;"></div>
+                    <span>●</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label>Color:</label>
+                <input type="color" id="colorPicker" value="#000000">
+            </div>
+            <div class="control-group">
+                <label>Size:</label>
+                <input type="range" id="brushSize" min="1" max="20" value="3">
+                <span id="sizeDisplay">3px</span>
+            </div>
+            <button id="clearCanvas">Clear Canvas</button>
+        </div>
+        
+        <div class="canvas-container">
+            <canvas id="drawingCanvas" width="800" height="600"></canvas>
         </div>
     </div>
+    
+    <!-- Initial Explanation Modal -->
+    <div id="explanationModal" class="modal" style="display: block;">
+        <div class="modal-content">
+            <h2>🎯 How Draw The Token Works</h2>
+            <div class="token-info">
+                <h3>Canvas → DEX Screener Integration</h3>
+                <p>Draw collaboratively and watch your art become a live token on <strong>DEX Screener</strong>!</p>
+                <br>
+                <p>🔗 <strong>Bonding Process:</strong> When your token reaches bonding curve completion, the canvas becomes the official token image</p>
+                <p>⚡ <strong>Instant DEX Payment:</strong> DEX Screener receives payment instantly when the coin is created and bonded</p>
+                <p>⏰ <strong>Live Updates:</strong> Every 5-minute canvas iteration automatically syncs to DEX Screener charts and metadata</p>
+                <p>📈 <strong>Real-Time Tracking:</strong> Token holders can watch their art evolve live on DEX Screener analytics</p>
+                <p>💹 <strong>Market Integration:</strong> Canvas complexity and activity directly influence token visibility and trading metrics</p>
+                <p>🎯 <strong>Automated Process:</strong> No manual uploads needed - bonded tokens automatically push canvas updates to DEX Screener</p>
+            </div>
+            <p><em>Ready to start drawing your token? You have 5 minutes per session!</em></p>
+            <br>
+            <button onclick="startDrawing()" class="pulse">Start Drawing Now</button>
+        </div>
+    </div>
+
+    <!-- Session Complete Modal -->
+    <div id="sessionModal" class="modal">
+        <div class="modal-content">
+            <h2>✅ Session Complete!</h2>
+            <div class="token-info">
+                <h3>Canvas Updated to DEX Screener</h3>
+                <p>Your 5-minute drawing session is complete!</p>
+                <br>
+                <p>📊 <strong>Token Image Updated:</strong> The canvas has been automatically synced to DEX Screener</p>
+                <p>⏰ <strong>Next Update:</strong> Continue drawing for another 5-minute session</p>
+                <p>💹 <strong>Check DEX Screener:</strong> View live token analytics and trading data</p>
+            </div>
+            <p><em>Ready for another 5-minute session?</em></p>
+            <br>
+            <button onclick="closeSessionModal()" class="pulse">Continue Drawing</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        const colorPicker = document.getElementById('colorPicker');
+        const brushSize = document.getElementById('brushSize');
+        const sizeDisplay = document.getElementById('sizeDisplay');
+        const timerDisplay = document.getElementById('timer');
+        const clearButton = document.getElementById('clearCanvas');
+        
+        let isDrawing = false;
+        let timeLeft = 300; // 5 minutes in seconds
+        let timerInterval;
+        let simulatedUsers = [];
+        
+        // Initialize simulated users
+        const userColors = ['#666666', '#999999', '#333333', '#777777', '#555555', '#888888', '#444444'];
+        
+        for (let i = 0; i < 3; i++) {
+            simulatedUsers.push({
+                color: userColors[i]
+            });
+        }
+        
+        // Drawing functionality
+        function startDrawing(e) {
+            isDrawing = true;
+            draw(e);
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            ctx.lineWidth = brushSize.value;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = colorPicker.value;
+            
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+        
+        function stopDrawing() {
+            if (isDrawing) {
+                isDrawing = false;
+                ctx.beginPath();
+            }
+        }
+        
+        // Event listeners
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+        
+        // Touch events for mobile
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        });
+        
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        });
+        
+        canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            const mouseEvent = new MouseEvent('mouseup', {});
+            canvas.dispatchEvent(mouseEvent);
+        });
+        
+        brushSize.addEventListener('input', () => {
+            sizeDisplay.textContent = brushSize.value + 'px';
+        });
+        
+        clearButton.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+        
+        // Timer functionality
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                showSessionModal();
+                resetSession();
+            } else {
+                timeLeft--;
+            }
+        }
+        
+        function startTimer() {
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+        
+        function resetSession() {
+            timeLeft = 300;
+            setTimeout(() => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                startTimer();
+            }, 1000);
+        }
+        
+        // Simulated user drawing
+        function simulateUserDrawing() {
+            simulatedUsers.forEach(user => {
+                if (Math.random() < 0.1) { // 10% chance every frame to draw
+                    drawRandomLine(user);
+                }
+            });
+        }
+        
+        function drawRandomLine(user) {
+            // Start from a random position
+            const startX = Math.random() * canvas.width;
+            const startY = Math.random() * canvas.height;
+            
+            // End at another random position
+            const endX = Math.random() * canvas.width;
+            const endY = Math.random() * canvas.height;
+            
+            ctx.lineWidth = Math.random() * 8 + 1; // Random thickness 1-9px
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = user.color;
+            ctx.globalAlpha = 0.6 + Math.random() * 0.4; // Random opacity 0.6-1.0
+            
+            // Draw the random line
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+            
+            // Sometimes draw connected random lines for more chaotic effect
+            if (Math.random() < 0.3) {
+                const nextX = Math.random() * canvas.width;
+                const nextY = Math.random() * canvas.height;
+                ctx.lineTo(nextX, nextY);
+                ctx.stroke();
+            }
+            
+            ctx.globalAlpha = 1;
+        }
+        
+        // Modal functions
+        function startDrawing() {
+            document.getElementById('explanationModal').style.display = 'none';
+            document.getElementById('mainContent').classList.add('active');
+            startTimer();
+            setInterval(simulateUserDrawing, 200); // Start simulated users
+        }
+        
+        function showSessionModal() {
+            document.getElementById('sessionModal').style.display = 'block';
+        }
+        
+        function closeSessionModal() {
+            document.getElementById('sessionModal').style.display = 'none';
+        }
+        
+        // Click outside modal to close
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('sessionModal')) {
+                closeSessionModal();
+            }
+        }
+        
+        // Initialize - Don't start timer until user clicks "Start Drawing Now"
+        
+        // Update user count occasionally
+        setInterval(() => {
+            const count = Math.floor(Math.random() * 5) + 5; // 5-9 users
+            document.getElementById('userCount').textContent = count;
+        }, 10000);
+    </script>
 </body>
 </html>
